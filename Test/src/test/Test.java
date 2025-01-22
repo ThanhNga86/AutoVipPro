@@ -19,17 +19,18 @@ import java.util.Random;
  */
 public class Test {
 
+    private int tongNam = 0;
     private int tongThang = 0;
     private int tongLai = 0;
-    private int tongLaiReal = 0;
+    private int countStop = 0;
     private String xoso66_1_cau3 = "-";
     private String xoso66_1_cau4 = "-";
     private String xoso66_1_cau5 = "-";
     private String xoso66_2_cau3 = "-";
     private String xoso66_2_cau4 = "-";
     private String xoso66_2_cau5 = "-";
-    private String xoso66_data_1 = "";
-    private String xoso66_data_2 = "";
+    private String xoso66_1_data = "";
+    private String xoso66_2_data = "";
     private String cau_1 = "";
     private String cau_2 = "";
     private String bet_1 = "";
@@ -40,23 +41,12 @@ public class Test {
     private int countBetReal_2 = 0;
     private boolean flagBet_1 = false;
     private boolean flagBet_2 = false;
-    private boolean flagReset_1 = false;
-    private boolean flagReset_2 = false;
-    private int tongLai_1 = 0;
-    private int tongLai_2 = 0;
-    private int tamLai_1 = 0;
-    private int tamLai_2 = 0;
     private int countWait_1 = 0;
     private int countWait_2 = 0;
-    private int countWin_1 = 0;
-    private int countWin_2 = 0;
-    private int kpi_1 = 50000;
-    private int kpi_2 = 50000;
-    private int kpiTong = 350000;
-    private final Integer[] betLevel_1 = {12500, 25000, 50000, 100000, 200000};
-    private final Integer[] betLevel_2 = {12500, 25000, 50000, 100000, 200000};
-    private final Integer[] betLevelReal_1 = {12500, 25000, 50000, 100000, 200000};
-    private final Integer[] betLevelReal_2 = {12500, 25000, 50000, 100000, 200000};
+    private Integer[] betLevel_1 = {12500, 25000, 50000, 100000, 200000};
+    private Integer[] betLevel_2 = {12500, 25000, 50000, 100000, 200000};
+    private Integer[] betLevelReal_1 = {10000, 20000, 40000, 80000, 160000};
+    private Integer[] betLevelReal_2 = {10000, 20000, 40000, 80000, 160000};
     private String arrCau_1[] = new String[]{
         "TTTNT",
         "NNNTT",
@@ -99,7 +89,7 @@ public class Test {
             "NTTTN",
             "NTNNN"
         };
-        tongLaiReal = 0;
+        countStop = 0;
         tongLai = 0;
         xoso66_1_cau3 = "-";
         xoso66_1_cau4 = "-";
@@ -107,8 +97,8 @@ public class Test {
         xoso66_2_cau3 = "-";
         xoso66_2_cau4 = "-";
         xoso66_2_cau5 = "-";
-        xoso66_data_1 = "";
-        xoso66_data_2 = "";
+        xoso66_1_data = "";
+        xoso66_2_data = "";
         cau_1 = "";
         cau_2 = "";
         bet_1 = "";
@@ -119,16 +109,8 @@ public class Test {
         countBetReal_2 = 0;
         flagBet_1 = false;
         flagBet_2 = false;
-        flagReset_1 = false;
-        flagReset_2 = false;
-        tongLai_1 = 0;
-        tongLai_2 = 0;
-        tamLai_1 = 0;
-        tamLai_2 = 0;
         countWait_1 = 0;
         countWait_2 = 0;
-        countWin_1 = 0;
-        countWin_2 = 0;
     }
 
     private String rdCauTX_1() {
@@ -139,16 +121,6 @@ public class Test {
 
             if (!cau_1.equals(arrCau_1[rd])) {
                 cau_1 = arrCau_1[rd];
-                for (int i = 0; i < 2; i++) {
-                    int rdIndex = random.nextInt(cau_1.length()) + 0;
-                    char[] chars = cau_1.toCharArray();
-                    if (chars[rdIndex] == 'T') {
-                        chars[rdIndex] = 'N';
-                    } else if (chars[rdIndex] == 'N') {
-                        chars[rdIndex] = 'T';
-                    }
-                    cau_1 = new String(chars);
-                }
                 break;
             } else if (arrCau_1.length <= 1) {
                 break;
@@ -165,16 +137,6 @@ public class Test {
 
             if (!cau_2.equals(arrCau_2[rd])) {
                 cau_2 = arrCau_2[rd];
-                for (int i = 0; i < 2; i++) {
-                    int rdIndex = random.nextInt(cau_2.length()) + 0;
-                    char[] chars = cau_2.toCharArray();
-                    if (chars[rdIndex] == 'T') {
-                        chars[rdIndex] = 'N';
-                    } else if (chars[rdIndex] == 'N') {
-                        chars[rdIndex] = 'T';
-                    }
-                    cau_2 = new String(chars);
-                }
                 break;
             } else if (arrCau_2.length <= 1) {
                 break;
@@ -186,55 +148,70 @@ public class Test {
     public Test() {
         NumberFormat numb = NumberFormat.getCurrencyInstance(new Locale("Vi", "VN"));
         Random rd = new Random();
-        for (int i = 0; i < 30; i++) {
-            reset();
-            rdCauTX_1();
-            rdCauTX_2();
+        for (int e = 0; e < 12; e++) {
+            for (int i = 0; i < 30; i++) {
+                reset();
+                rdCauTX_1();
+                rdCauTX_2();
 
-            for (int j = 0; j < 2880; j++) {
-                int xs1 = rd.nextInt(6) + 1;
-                int xs2 = rd.nextInt(6) + 1;
-                int xs3 = rd.nextInt(6) + 1;
-                int kq = xs1 + xs2 + xs3;
+                for (int j = 0; j < 2880; j++) {
+                    countStop += 1;
+                    int xs1 = rd.nextInt(6) + 1;
+                    int xs2 = rd.nextInt(6) + 1;
+                    int xs3 = rd.nextInt(6) + 1;
+                    int kq = xs1 + xs2 + xs3;
 
-                String kqTX;
-                if (kq <= 10) {
-                    kqTX = "X";
-                } else {
-                    kqTX = "T";
-                }
-                if (xs1 == xs2 && xs2 == xs3) {
-                    kqTX = "B";
-                }
-                taiXiu(kqTX);
+                    String kqTX;
+                    if (kq <= 10) {
+                        kqTX = "X";
+                    } else {
+                        kqTX = "T";
+                    }
+                    if (xs1 == xs2 && xs2 == xs3) {
+                        kqTX = "B";
+                    }
+                    taiXiu(kqTX);
 
-                String kqCL;
-                if (kq % 2 == 0) {
-                    kqCL = "C";
-                } else {
-                    kqCL = "L";
-                }
-                if (xs1 == xs2 && xs2 == xs3) {
-                    kqCL = "B";
-                }
-                chanLe(kqCL);
+                    String kqCL;
+                    if (kq % 2 == 0) {
+                        kqCL = "C";
+                    } else {
+                        kqCL = "L";
+                    }
+                    if (xs1 == xs2 && xs2 == xs3) {
+                        kqCL = "B";
+                    }
+                    chanLe(kqCL);
 
-                if (flagBet_1 == true && flagBet_2 == true) {
-                    break;
+                    if (flagBet_1 == true && flagBet_2 == true) {
+                        break;
+                    }
                 }
+                if (countBetReal_1 > 0) {
+                    for (int a = 0; a < countBetReal_1; a++) {
+                        tongLai -= betLevelReal_1[a];
+                    }
+                }
+                if (countBetReal_2 > 0) {
+                    for (int a = 0; a < countBetReal_2; a++) {
+                        tongLai -= betLevelReal_2[a];
+                    }
+                }
+                tongThang += tongLai;
             }
-            tongThang += tongLaiReal;
-            System.out.println("Ngay " + (i + 1) + ": " + numb.format(tongLaiReal));
+            System.out.println("Thang " + (e + 1) + ": " + numb.format(tongThang));
+            tongNam += tongThang;
+            tongThang = 0;
         }
-        System.out.println("Tong 30 ngay real: " + numb.format(tongThang));
+        System.out.println("Tong nam: " + numb.format(tongNam));
     }
 
     private void taiXiu(String kq) {
         countWait_1 += 1;
-        xoso66_data_1 += kq;
-        xoso66_data_1 = processData(xoso66_data_1, 18);
+        xoso66_1_data += kq;
+        xoso66_1_data = processData(xoso66_1_data, 18);
 
-        List<String> results = findClosestPatterns_1(xoso66_data_1);
+        List<String> results = findClosestPatterns_1(xoso66_1_data);
         if (!results.get(0).equals("-")) {
             xoso66_1_cau3 = results.get(0);
         }
@@ -246,67 +223,34 @@ public class Test {
         }
 
         if (!bet_1.isEmpty()) {
-            if (!kq.equals("B")) {
-                if (bet_1.equals(kq)) { // thang
-                    // luu vao database tong_lai
-                    if (countBet_1 == betLevel_1.length - 5) {
-                        tongLaiReal += betLevelReal_1[0];
-                        countBetReal_1 = 0;
-                    }
-
-                    tamLai_1 += betLevel_1[0];
-                    tongLai += betLevel_1[0];
-                    tongLai_1 += betLevel_1[0];
-
-                    countBet_1 = 0;
-                    rdCauTX_1();
-                } else { // thua
-                    if (countBet_1 == betLevel_1.length - 5) {
-                        countBetReal_1 += 1;
-                        if (countBetReal_1 > betLevelReal_1.length) {
-                            for (int i = 0; i < betLevelReal_1.length; i++) {
-                                tongLaiReal -= betLevelReal_1[i];
-                            }
-                            countBetReal_1 = 0;
-                        }
-                    }
-
-                    countBet_1 += 1;
-                    if (countBet_1 < betLevel_1.length) { // hoa`
-                    } else { // thua het
-                        // luu vao database tong_lai
-                        for (int i = 0; i < betLevel_1.length; i++) {
-                            tongLai -= betLevel_1[i];
-                            tongLai_1 -= betLevel_1[i];
-                        }
-
-                        shuffleArray_1(arrCau_1);
-                        countBet_1 = 0;
-                        cau_1 = "";
-                        rdCauTX_1();
-                    }
-                }
-            } else { // thua do bao~
+            if (bet_1.equals(kq)) { // thang
+                // luu vao database tong_lai
                 if (countBet_1 == betLevel_1.length - 5) {
                     countBetReal_1 += 1;
-                    if (countBetReal_1 > betLevelReal_1.length) {
+                    if (countBetReal_1 < betLevelReal_1.length) {
+                    } else {
                         for (int i = 0; i < betLevelReal_1.length; i++) {
-                            tongLaiReal -= betLevelReal_1[i];
+                            tongLai -= betLevelReal_1[i];
                         }
                         countBetReal_1 = 0;
                     }
+                }
+
+                countBet_1 = 0;
+                rdCauTX_1();
+            } else { // thua
+                if (countBet_1 == betLevel_1.length - 5) {
+                    tongLai += betLevelReal_1[0];
+                    countBetReal_1 = 0;
+                    
+                    int rdWait = new Random().nextInt(60) + 10;
+                    countWait_1 = -rdWait;
                 }
 
                 countBet_1 += 1;
                 if (countBet_1 < betLevel_1.length) { // hoa`
                 } else { // thua het
-                    // luu vao database tong_lai
-                    for (int i = 0; i < betLevel_1.length; i++) {
-                        tongLai -= betLevel_1[i];
-                        tongLai_1 -= betLevel_1[i];
-                    }
-
-                    shuffleArray_1(arrCau_1);
+                    shuffleArray(arrCau_1);
                     countBet_1 = 0;
                     cau_1 = "";
                     rdCauTX_1();
@@ -322,10 +266,10 @@ public class Test {
 
     private void chanLe(String kq) {
         countWait_2 += 1;
-        xoso66_data_2 += kq;
-        xoso66_data_2 = processData(xoso66_data_2, 18);
+        xoso66_2_data += kq;
+        xoso66_2_data = processData(xoso66_2_data, 18);
 
-        List<String> results = findClosestPatterns_2(xoso66_data_2);
+        List<String> results = findClosestPatterns_2(xoso66_2_data);
         if (!results.get(0).equals("-")) {
             xoso66_2_cau3 = results.get(0);
         }
@@ -337,73 +281,38 @@ public class Test {
         }
 
         if (!bet_2.isEmpty()) {
-            if (!kq.equals("B")) {
-                if (bet_2.equals(kq)) { // thang
-                    if (countBet_2 == betLevel_2.length - 5) {
-                        tongLaiReal += betLevelReal_2[0];
-                        countBetReal_2 = 0;
-                    }
-
-                    // luu vao database tong_lai
-                    tamLai_2 += betLevel_2[0];
-                    tongLai += betLevel_2[0];
-                    tongLai_2 += betLevel_2[0];
-
-                    countBet_2 = 0;
-                    rdCauTX_2();
-                } else { // thua
-                    if (countBet_2 == betLevel_2.length - 5) {
-                        countBetReal_2 += 1;
-                        if (countBetReal_2 > betLevelReal_2.length) {
-                            for (int i = 0; i < betLevelReal_2.length; i++) {
-                                tongLaiReal -= betLevelReal_2[i];
-                            }
-                            countBetReal_2 = 0;
-                        }
-                    }
-
-                    countBet_2 += 1;
-                    if (countBet_2 < betLevel_2.length) { // hoa`
-                    } else { // thua het
-                        // luu vao database tong_lai
-                        for (int i = 0; i < betLevel_2.length; i++) {
-                            tongLai -= betLevel_2[i];
-                            tongLai_2 -= betLevel_2[i];
-                        }
-
-                        shuffleArray_2(arrCau_2);
-                        countBet_2 = 0;
-                        cau_2 = "";
-                        rdCauTX_2();
-                    }
-                }
-            } else { // thua do bao~
+            if (bet_2.equals(kq)) { // thang
                 if (countBet_2 == betLevel_2.length - 5) {
                     countBetReal_2 += 1;
-                    if (countBetReal_2 > betLevelReal_2.length) {
+                    if (countBetReal_2 < betLevelReal_2.length) {
+                    } else {
                         for (int i = 0; i < betLevelReal_2.length; i++) {
-                            tongLaiReal -= betLevelReal_2[i];
+                            tongLai -= betLevelReal_2[i];
                         }
                         countBetReal_2 = 0;
                     }
+                }
+
+                countBet_2 = 0;
+                rdCauTX_2();
+            } else { // thua
+                if (countBet_2 == betLevel_2.length - 5) {
+                    tongLai += betLevelReal_2[0];
+                    countBetReal_2 = 0;
+                    
+                    int rdWait = new Random().nextInt(60) + 10;
+                    countWait_2 = -rdWait;
                 }
 
                 countBet_2 += 1;
                 if (countBet_2 < betLevel_2.length) { // hoa`
                 } else { // thua het
-                    // luu vao database tong_lai
-                    for (int i = 0; i < betLevel_2.length; i++) {
-                        tongLai -= betLevel_2[i];
-                        tongLai_2 -= betLevel_2[i];
-                    }
-
-                    shuffleArray_2(arrCau_2);
+                    shuffleArray(arrCau_2);
                     countBet_2 = 0;
                     cau_2 = "";
                     rdCauTX_2();
                 }
             }
-
             bet_2 = "";
         }
 
@@ -412,25 +321,6 @@ public class Test {
     }
 
     private void xoso66_nextBet_1() {
-        if (tamLai_1 >= kpi_1 && countBet_1 == 0 && countBetReal_1 == 0) {
-            int rdWait = new Random().nextInt(60) + 20;
-            countWait_1 = -rdWait;
-            tamLai_1 = 0;
-        }
-
-        if (countWait_1 == 0) {
-            xoso66_1_cau3 = "-";
-            xoso66_1_cau4 = "-";
-            xoso66_1_cau5 = "-";
-            cau_1 = "";
-            rdCauTX_1();
-
-            if (flagReset_1) {
-                xoso66_data_1 = "";
-                flagReset_1 = false;
-            }
-        }
-
         if (countWait_1 > 0 && flagBet_1 == false) {
             List<String> results = List.of(xoso66_1_cau3, xoso66_1_cau4, xoso66_1_cau5);
 
@@ -453,7 +343,7 @@ public class Test {
                 String value = entry.getValue();
 
                 String keySub = key.substring(0, key.length() - 1);
-                if (xoso66_data_1.endsWith(keySub) && results.contains(value)) {
+                if (xoso66_1_data.endsWith(keySub) && results.contains(value)) {
                     bet_1 = key.charAt(key.length() - 1) + "";
                     break;
                 }
@@ -472,25 +362,6 @@ public class Test {
     }
 
     private void xoso66_nextBet_2() {
-        if (tamLai_2 >= kpi_2 && countBet_2 == 0 && countBetReal_2 == 0) {
-            int rdWait = new Random().nextInt(60) + 20;
-            countWait_2 = -rdWait;
-            tamLai_2 = 0;
-        }
-
-        if (countWait_2 == 0) {
-            xoso66_2_cau3 = "-";
-            xoso66_2_cau4 = "-";
-            xoso66_2_cau5 = "-";
-            cau_2 = "";
-            rdCauTX_2();
-
-            if (flagReset_2) {
-                xoso66_data_2 = "";
-                flagReset_2 = false;
-            }
-        }
-
         if (countWait_2 > 0 && flagBet_2 == false) {
             List<String> results = List.of(xoso66_2_cau3, xoso66_2_cau4, xoso66_2_cau5);
 
@@ -512,7 +383,7 @@ public class Test {
                 String value = entry.getValue();
 
                 String keySub = key.substring(0, key.length() - 1);
-                if (xoso66_data_2.endsWith(keySub) && results.contains(value)) {
+                if (xoso66_2_data.endsWith(keySub) && results.contains(value)) {
                     bet_2 = key.charAt(key.length() - 1) + "";
                     break;
                 }
@@ -531,27 +402,18 @@ public class Test {
     }
 
     private void xoso66_stopToWin_1() {
-        int tong = 0;
-        for (Integer money : betLevel_1) {
-            tong += money;
+        int tongReal = 0;
+        for (Integer money : betLevelReal_2) {
+            tongReal += money;
         }
 
-        if (tongLai_1 >= kpiTong && countBet_1 == 0 && countBet_2 == 0 && countBetReal_1 == 0) {
-            countWin_1 += 1;
-            if (countWin_1 > 2) {
-                flagBet_1 = true;
-            } else {
-                countWait_1 = -120;
-                tamLai_1 = 0;
-                tongLai_1 = 0;
-                flagBet_1 = false;
-                flagReset_1 = true;
-            }
-        } else if (tongLai_1 >= kpiTong && countBet_1 == 0 && countBet_2 > 0 && countBetReal_1 == 0) {
+        if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
             flagBet_1 = true;
-        } else if (tongLai_1 <= (tong * -3) && countBet_1 == 0 && countBet_2 == 0 && countBetReal_1 == 0) {
+        } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 > 0) {
             flagBet_1 = true;
-        } else if (tongLai_1 <= (tong * -3) && countBet_1 == 0 && countBet_2 > 0 && countBetReal_1 == 0) {
+        } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 > 0 && countBetReal_2 == 0) {
+            flagBet_1 = true;
+        } else if (countStop >= 2700 && countBetReal_1 == 0) {
             flagBet_1 = true;
         } else {
             flagBet_1 = false;
@@ -559,27 +421,16 @@ public class Test {
     }
 
     private void xoso66_stopToWin_2() {
-        int tong = 0;
-        for (Integer money : betLevel_2) {
-            tong += money;
+        int tongReal = 0;
+        for (Integer money : betLevelReal_2) {
+            tongReal += money;
         }
 
-        if (tongLai_2 >= kpiTong && countBet_1 == 0 && countBet_2 == 0 && countBetReal_2 == 0) {
-            countWin_2 += 1;
-            if (countWin_2 > 2) {
-                flagBet_2 = true;
-            } else {
-                countWait_2 = -120;
-                tamLai_2 = 0;
-                tongLai_2 = 0;
-                flagBet_2 = false;
-                flagReset_2 = true;
-            }
-        } else if (tongLai_2 >= kpiTong && countBet_1 > 0 && countBet_2 == 0 && countBetReal_2 == 0) {
+        if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
             flagBet_2 = true;
-        } else if (tongLai_2 <= (tong * -3) && countBet_1 == 0 && countBet_2 == 0 && countBetReal_2 == 0) {
+        } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 > 0 && countBetReal_2 == 0) {
             flagBet_2 = true;
-        } else if (tongLai_2 <= (tong * -3) && countBet_1 > 0 && countBet_2 == 0 && countBetReal_2 == 0) {
+        } else if (countStop >= 2700 && countBetReal_2 == 0) {
             flagBet_2 = true;
         } else {
             flagBet_2 = false;
@@ -625,17 +476,7 @@ public class Test {
         cauList.add(cau);
     }
 
-    private static void shuffleArray_1(String[] array) {
-        Random random = new Random();
-        for (int i = array.length - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-            String temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-    }
-
-    private static void shuffleArray_2(String[] array) {
+    private static void shuffleArray(String[] array) {
         Random random = new Random();
         for (int i = array.length - 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
