@@ -30,9 +30,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
  *
  * @author Lenovo
  */
-public class AutoKeno30s extends javax.swing.JFrame {
+public class AutoMB_4 extends javax.swing.JFrame {
 
-    private final String urlWeb = "https://tr8d33.xoso66.expert/home/#/lottery?tabName=Lottery&id=52";
+    private final String urlWeb = "https://tr8d33.xoso66.expert/home/#/lottery?tabName=Lottery&id=47";
     private WebDriver driver = null;
     private ScheduledExecutorService scheduler = null;
     private final NumberFormat numb = NumberFormat.getCurrencyInstance(new Locale("Vi", "VN"));
@@ -83,9 +83,9 @@ public class AutoKeno30s extends javax.swing.JFrame {
         "NTNNN"
     };
 
-    public AutoKeno30s() {
+    public AutoMB_4() {
         initComponents();
-        setTitle("AutoKeno30s");
+        setTitle("AutoMB_4");
         setResizable(false);
         setLocationRelativeTo(null);
         ImageIcon logoIcon = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\com\\autovp\\repo\\logo.png");
@@ -128,6 +128,10 @@ public class AutoKeno30s extends javax.swing.JFrame {
             cauTX_2.setText("Cầu: " + rdCauTX_2());
             lanDatTiepTheo_2.setText("Lần đặt tiếp theo: " + (countBetReal_2 + 1));
             soTienDat_2.setText("Số tiền: " + numb.format(betLevelReal_2[countBetReal_2]));
+
+            WebElement playSelectBox = driver.findElement(By.cssSelector(".playSelectBox"));
+            WebElement tabs = playSelectBox.findElement(By.cssSelector(".el-tabs__content"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", tabs.findElements(By.cssSelector("li")).get(4));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -309,6 +313,9 @@ public class AutoKeno30s extends javax.swing.JFrame {
                                 Thread.sleep(3000);
                                 countId = 0;
                                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.cssSelector(".x-btn")));
+                                WebElement playSelectBox = driver.findElement(By.cssSelector(".playSelectBox"));
+                                WebElement tabs = playSelectBox.findElement(By.cssSelector(".el-tabs__content"));
+                                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", tabs.findElements(By.cssSelector("li")).get(4));
                             }
                         } catch (Exception e) {
                         }
@@ -319,7 +326,7 @@ public class AutoKeno30s extends javax.swing.JFrame {
 
                 // Kiem tra neu bi logout thi login lai
                 checkLogin();
-            }, 0, 8, TimeUnit.SECONDS);
+            }, 0, 11, TimeUnit.SECONDS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -423,11 +430,11 @@ public class AutoKeno30s extends javax.swing.JFrame {
 
     private void xoso66_pick(String pick_1, String price_1, String pick_2, String price_2) {
         try {
-            WebElement kenoBet = driver.findElement(By.cssSelector(".kenoBet"));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", kenoBet);
+            WebElement funPlayBet = driver.findElement(By.cssSelector(".funPlayBet"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", funPlayBet);
             Thread.sleep(200);
 
-            WebElement ballBox = kenoBet.findElement(By.cssSelector(".ballBox"));
+            WebElement ballBox = funPlayBet.findElement(By.cssSelector(".ballBox"));
             List<WebElement> flex1 = ballBox.findElements(By.cssSelector(".flex1"));
 
             WebElement pickElement_1 = null;
@@ -551,14 +558,14 @@ public class AutoKeno30s extends javax.swing.JFrame {
         Map<String, String> map = new HashMap<>();
         try {
             Thread.sleep(1000);
-            WebElement kenoOpneResult = driver.findElement(By.cssSelector(".kenoOpneResult"));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", kenoOpneResult);
-            String issue = kenoOpneResult.findElement(By.cssSelector(".Issue")).getText().trim();
-            WebElement resultSum = kenoOpneResult.findElement(By.cssSelector(".resultSum"));
+            WebElement _openNumber = driver.findElement(By.cssSelector("._openNumber"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", _openNumber);
+            String issue = _openNumber.findElement(By.cssSelector("h2")).getText().replace("Kỳ", "").replace(", giải đặc biệt", "").trim();
+            WebElement resultNumber = _openNumber.findElements(By.cssSelector("span")).get(3);
             map.put("id", issue);
 
-            int result = Integer.parseInt(resultSum.getText().trim());
-            if (result >= 811) {
+            int result = Integer.parseInt(resultNumber.getText().trim());
+            if (result >= 5) {
                 map.put("kqTX", "T");
             } else {
                 map.put("kqTX", "X");
@@ -1083,28 +1090,90 @@ public class AutoKeno30s extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AutoKeno30s.class
+            java.util.logging.Logger.getLogger(AutoMB_4.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AutoKeno30s.class
+            java.util.logging.Logger.getLogger(AutoMB_4.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AutoKeno30s.class
+            java.util.logging.Logger.getLogger(AutoMB_4.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AutoKeno30s.class
+            java.util.logging.Logger.getLogger(AutoMB_4.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AutoKeno30s().setVisible(true);
+                new AutoMB_4().setVisible(true);
             }
         });
     }

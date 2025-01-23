@@ -32,7 +32,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
  */
 public class AutoKeno40s extends javax.swing.JFrame {
 
-    private final String urlWeb = "https://tr8d33.xoso66.expert/home/#/lottery?tabName=Lottery&id=53";
+    private final String urlWeb = "https://678daetgs.com/home/#/lottery?tabName=Lottery&id=53";
     private WebDriver driver = null;
     private ScheduledExecutorService scheduler = null;
     private final NumberFormat numb = NumberFormat.getCurrencyInstance(new Locale("Vi", "VN"));
@@ -47,6 +47,7 @@ public class AutoKeno40s extends javax.swing.JFrame {
     private String cau_2 = "";
     private String bet_1 = "";
     private String bet_2 = "";
+    private final int countData = 3000;
     private int countStop = 0;
     private int countBet_1 = 0;
     private int countBet_2 = 0;
@@ -84,7 +85,7 @@ public class AutoKeno40s extends javax.swing.JFrame {
 
     public AutoKeno40s() {
         initComponents();
-        setTitle("AutoKeno40s");
+        setTitle("AutoKeno30s");
         setResizable(false);
         setLocationRelativeTo(null);
         ImageIcon logoIcon = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\com\\autovp\\repo\\logo.png");
@@ -224,7 +225,7 @@ public class AutoKeno40s extends javax.swing.JFrame {
                                     lanDatTiepTheo_1.setText("Lần đặt tiếp theo: " + (countBetReal_1 + 1));
                                     soTienDat_1.setText("Số tiền: " + numb.format(betLevelReal_1[countBetReal_1]));
 
-                                    int rdWait = new Random().nextInt(60) + 10;
+                                    int rdWait = new Random().nextInt(20) + 10;
                                     countWait_1 = -rdWait;
                                     labelTimeNext_1.setText(countWait_1 + "");
                                 }
@@ -270,7 +271,7 @@ public class AutoKeno40s extends javax.swing.JFrame {
                                     lanDatTiepTheo_2.setText("Lần đặt tiếp theo: " + (countBetReal_2 + 1));
                                     soTienDat_2.setText("Số tiền: " + numb.format(betLevelReal_2[countBetReal_2]));
 
-                                    int rdWait = new Random().nextInt(60) + 10;
+                                    int rdWait = new Random().nextInt(20) + 10;
                                     countWait_2 = -rdWait;
                                     labelTimeNext_2.setText(countWait_2 + "");
                                 }
@@ -435,7 +436,7 @@ public class AutoKeno40s extends javax.swing.JFrame {
                 // Chọn T hoặc X
                 pickElement_1 = pick_1.equals("T") ? flex1.get(0) : flex1.get(1);
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", pickElement_1);
-                Thread.sleep(800);
+                Thread.sleep(1000);
 
                 // Nhập số tiền
                 WebElement order = driver.findElement(By.cssSelector(".my-order-list"));
@@ -452,7 +453,7 @@ public class AutoKeno40s extends javax.swing.JFrame {
                 // Chọn T hoặc X
                 pickElement_2 = pick_2.equals("L") ? flex1.get(2) : flex1.get(3);
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", pickElement_2);
-                Thread.sleep(800);
+                Thread.sleep(1000);
 
                 // Nhập số tiền
                 WebElement order = driver.findElement(By.cssSelector(".my-order-list"));
@@ -477,7 +478,7 @@ public class AutoKeno40s extends javax.swing.JFrame {
                     if (pickElement_1 != null) {
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", pickElement_1);
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", pickElement_1);
-                        Thread.sleep(800);
+                        Thread.sleep(1000);
                         WebElement order = driver.findElement(By.cssSelector(".my-order-list"));
                         WebElement orderItem = order.findElements(By.cssSelector(".order-item-wp")).get(0);
                         WebElement inpPrice = orderItem.findElement(By.cssSelector("input[type='tel']"));
@@ -491,7 +492,7 @@ public class AutoKeno40s extends javax.swing.JFrame {
                     if (pickElement_2 != null) {
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", pickElement_2);
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", pickElement_2);
-                        Thread.sleep(800);
+                        Thread.sleep(1000);
                         WebElement order = driver.findElement(By.cssSelector(".my-order-list"));
                         WebElement orderItem = order.findElements(By.cssSelector(".order-item-wp")).get(0);
                         WebElement inpPrice = orderItem.findElement(By.cssSelector("input[type='tel']"));
@@ -530,11 +531,15 @@ public class AutoKeno40s extends javax.swing.JFrame {
             flagBet_1 = true;
         } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 > 0 && countBetReal_2 == 0) {
             flagBet_2 = true;
-        } else if (countStop >= 3000 && countBetReal_1 == 0 && countBetReal_2 == 0) {
+        } else if (countStop >= (countData - 120) && countBetReal_1 == 0 && countBetReal_2 == 0) {
             xoso66_onOff.setText("Done");
             scheduler.shutdown();
             flagXoso66 = false;
             flagBet_1 = true;
+            flagBet_2 = true;
+        } else if (countStop >= (countData - 120) && countBetReal_1 == 0 && countBetReal_2 > 0) {
+            flagBet_1 = true;
+        } else if (countStop >= (countData - 120) && countBetReal_1 > 0 && countBetReal_2 == 0) {
             flagBet_2 = true;
         } else {
             flagBet_1 = false;
@@ -907,11 +912,11 @@ public class AutoKeno40s extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(14, 14, 14)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelTongLai, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addComponent(labelTongLai, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(xoso_TK, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))

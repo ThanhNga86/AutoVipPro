@@ -23,6 +23,7 @@ public class Test {
     private int tongThang = 0;
     private int tongLai = 0;
     private int countStop = 0;
+    private int countData = 1920;
     private String xoso66_1_cau3 = "-";
     private String xoso66_1_cau4 = "-";
     private String xoso66_1_cau5 = "-";
@@ -154,7 +155,7 @@ public class Test {
                 rdCauTX_1();
                 rdCauTX_2();
 
-                for (int j = 0; j < 2880; j++) {
+                for (int j = 0; j < countData; j++) {
                     countStop += 1;
                     int xs1 = rd.nextInt(6) + 1;
                     int xs2 = rd.nextInt(6) + 1;
@@ -191,11 +192,13 @@ public class Test {
                     for (int a = 0; a < countBetReal_1; a++) {
                         tongLai -= betLevelReal_1[a];
                     }
+                    System.out.println(countBetReal_1);
                 }
                 if (countBetReal_2 > 0) {
                     for (int a = 0; a < countBetReal_2; a++) {
                         tongLai -= betLevelReal_2[a];
                     }
+                    System.out.println(countBetReal_2);
                 }
                 tongThang += tongLai;
             }
@@ -223,8 +226,7 @@ public class Test {
         }
 
         if (!bet_1.isEmpty()) {
-            if (bet_1.equals(kq)) { // thang
-                // luu vao database tong_lai
+            if (bet_1.equals(kq)) { // thua
                 if (countBet_1 == betLevel_1.length - 5) {
                     countBetReal_1 += 1;
                     if (countBetReal_1 < betLevelReal_1.length) {
@@ -238,18 +240,18 @@ public class Test {
 
                 countBet_1 = 0;
                 rdCauTX_1();
-            } else { // thua
+            } else { // thang
                 if (countBet_1 == betLevel_1.length - 5) {
                     tongLai += betLevelReal_1[0];
                     countBetReal_1 = 0;
-                    
-                    int rdWait = new Random().nextInt(60) + 10;
+
+                    int rdWait = new Random().nextInt(20) + 10;
                     countWait_1 = -rdWait;
                 }
 
                 countBet_1 += 1;
-                if (countBet_1 < betLevel_1.length) { // hoa`
-                } else { // thua het
+                if (countBet_1 < betLevel_1.length) {
+                } else {
                     shuffleArray(arrCau_1);
                     countBet_1 = 0;
                     cau_1 = "";
@@ -281,7 +283,7 @@ public class Test {
         }
 
         if (!bet_2.isEmpty()) {
-            if (bet_2.equals(kq)) { // thang
+            if (bet_2.equals(kq)) { // thua
                 if (countBet_2 == betLevel_2.length - 5) {
                     countBetReal_2 += 1;
                     if (countBetReal_2 < betLevelReal_2.length) {
@@ -295,18 +297,18 @@ public class Test {
 
                 countBet_2 = 0;
                 rdCauTX_2();
-            } else { // thua
+            } else { // thang
                 if (countBet_2 == betLevel_2.length - 5) {
                     tongLai += betLevelReal_2[0];
                     countBetReal_2 = 0;
-                    
-                    int rdWait = new Random().nextInt(60) + 10;
+
+                    int rdWait = new Random().nextInt(20) + 10;
                     countWait_2 = -rdWait;
                 }
 
                 countBet_2 += 1;
-                if (countBet_2 < betLevel_2.length) { // hoa`
-                } else { // thua het
+                if (countBet_2 < betLevel_2.length) {
+                } else {
                     shuffleArray(arrCau_2);
                     countBet_2 = 0;
                     cau_2 = "";
@@ -413,7 +415,7 @@ public class Test {
             flagBet_1 = true;
         } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 > 0 && countBetReal_2 == 0) {
             flagBet_1 = true;
-        } else if (countStop >= 2700 && countBetReal_1 == 0) {
+        } else if (countStop >= (countData - 120) && countBetReal_1 == 0) {
             flagBet_1 = true;
         } else {
             flagBet_1 = false;
@@ -430,7 +432,7 @@ public class Test {
             flagBet_2 = true;
         } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 > 0 && countBetReal_2 == 0) {
             flagBet_2 = true;
-        } else if (countStop >= 2700 && countBetReal_2 == 0) {
+        } else if (countStop >= (countData - 120) && countBetReal_2 == 0) {
             flagBet_2 = true;
         } else {
             flagBet_2 = false;
