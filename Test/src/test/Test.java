@@ -192,13 +192,11 @@ public class Test {
                     for (int a = 0; a < countBetReal_1; a++) {
                         tongLai -= betLevelReal_1[a];
                     }
-                    System.out.println(countBetReal_1);
                 }
                 if (countBetReal_2 > 0) {
                     for (int a = 0; a < countBetReal_2; a++) {
                         tongLai -= betLevelReal_2[a];
                     }
-                    System.out.println(countBetReal_2);
                 }
                 tongThang += tongLai;
             }
@@ -252,7 +250,6 @@ public class Test {
                 countBet_1 += 1;
                 if (countBet_1 < betLevel_1.length) {
                 } else {
-                    shuffleArray(arrCau_1);
                     countBet_1 = 0;
                     cau_1 = "";
                     rdCauTX_1();
@@ -309,7 +306,6 @@ public class Test {
                 countBet_2 += 1;
                 if (countBet_2 < betLevel_2.length) {
                 } else {
-                    shuffleArray(arrCau_2);
                     countBet_2 = 0;
                     cau_2 = "";
                     rdCauTX_2();
@@ -476,16 +472,6 @@ public class Test {
         }
         // Thêm cầu mới vào danh sách
         cauList.add(cau);
-    }
-
-    private static void shuffleArray(String[] array) {
-        Random random = new Random();
-        for (int i = array.length - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-            String temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
     }
 
     public static List<String> findClosestPatterns_1(String mainPattern) {

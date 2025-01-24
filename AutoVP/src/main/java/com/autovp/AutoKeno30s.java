@@ -47,7 +47,7 @@ public class AutoKeno30s extends javax.swing.JFrame {
     private String cau_2 = "";
     private String bet_1 = "";
     private String bet_2 = "";
-    private final int countData = 3000;
+    private final int countData = 2880;
     private int countStop = 0;
     private int countBet_1 = 0;
     private int countBet_2 = 0;
@@ -97,9 +97,6 @@ public class AutoKeno30s extends javax.swing.JFrame {
         xoso66_2_setData.setLineWrap(true);
         xoso66_2_setData.setWrapStyleWord(true);
         xoso66_2_setData.disable();
-
-        rdCauTX_1();
-        rdCauTX_2();
     }
 
     private void xoso66_login() {
@@ -233,7 +230,6 @@ public class AutoKeno30s extends javax.swing.JFrame {
                                 countBet_1 += 1;
                                 if (countBet_1 < betLevel_1.length) {
                                 } else {
-                                    shuffleArray(arrCau_1);
                                     countBet_1 = 0;
                                     cau_1 = "";
                                     cauTX_1.setText("Cầu: " + rdCauTX_1());
@@ -279,7 +275,6 @@ public class AutoKeno30s extends javax.swing.JFrame {
                                 countBet_2 += 1;
                                 if (countBet_2 < betLevel_2.length) {
                                 } else {
-                                    shuffleArray(arrCau_2);
                                     countBet_2 = 0;
                                     cau_2 = "";
                                     cauTX_2.setText("Cầu: " + rdCauTX_2());
@@ -614,16 +609,6 @@ public class AutoKeno30s extends javax.swing.JFrame {
             }
         }
         return cau_2;
-    }
-
-    private void shuffleArray(String[] array) {
-        Random random = new Random();
-        for (int i = array.length - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-            String temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
     }
 
     private String processData(String data, int maxCau) {
