@@ -397,7 +397,7 @@ public class AutoMB_2 extends javax.swing.JFrame {
             }
 
             if (countBet_1 == betLevel_1.length - 5) {
-                betReal_1 = (bet_1.equals("T") ? "X" : "T");
+                betReal_1 = bet_1.equals("T") ? "X" : "T";
                 datCuoc_1.setText("Đặt cược: " + betReal_1);
             }
         }
@@ -522,8 +522,17 @@ public class AutoMB_2 extends javax.swing.JFrame {
             tongReal += money;
         }
 
-        System.out.println("Count stop: " + countStop);
-        if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
+        if (tongLai >= (tongReal * 2) && countBetReal_1 == 0 && countBetReal_2 == 0) {
+            xoso66_onOff.setText("Done");
+            scheduler.shutdown();
+            flagXoso66 = false;
+            flagBet_1 = true;
+            flagBet_2 = true;
+        } else if (tongLai >= (tongReal * 2) && countBetReal_1 == 0 && countBetReal_2 > 0) {
+            flagBet_1 = true;
+        } else if (tongLai >= (tongReal * 2) && countBetReal_1 > 0 && countBetReal_2 == 0) {
+            flagBet_2 = true;
+        } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
             xoso66_onOff.setText("Done");
             scheduler.shutdown();
             flagXoso66 = false;

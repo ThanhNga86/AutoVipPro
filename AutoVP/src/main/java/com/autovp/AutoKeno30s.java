@@ -207,6 +207,7 @@ public class AutoKeno30s extends javax.swing.JFrame {
                                         }
                                         countBetReal_1 = 0;
                                         labelTongLai.setText(numb.format(tongLai));
+                                        System.out.println("Data: " + xoso66_1_data);
                                     }
                                     lanDatTiepTheo_1.setText("Lần đặt tiếp theo: " + (countBetReal_1 + 1));
                                     soTienDat_1.setText("Số tiền: " + numb.format(betLevelReal_1[countBetReal_1]));
@@ -252,6 +253,7 @@ public class AutoKeno30s extends javax.swing.JFrame {
                                         }
                                         countBetReal_2 = 0;
                                         labelTongLai.setText(numb.format(tongLai));
+                                        System.out.println("Data: " + xoso66_2_data);
                                     }
                                     lanDatTiepTheo_2.setText("Lần đặt tiếp theo: " + (countBetReal_2 + 1));
                                     soTienDat_2.setText("Số tiền: " + numb.format(betLevelReal_2[countBetReal_2]));
@@ -390,7 +392,7 @@ public class AutoKeno30s extends javax.swing.JFrame {
             }
 
             if (countBet_1 == betLevel_1.length - 5) {
-                betReal_1 = (bet_1.equals("T") ? "X" : "T");
+                betReal_1 = bet_1.equals("T") ? "X" : "T";
                 datCuoc_1.setText("Đặt cược: " + betReal_1);
             }
         }
@@ -515,8 +517,17 @@ public class AutoKeno30s extends javax.swing.JFrame {
             tongReal += money;
         }
 
-        System.out.println("Count stop: " + countStop);
-        if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
+        if (tongLai >= (tongReal * 2) && countBetReal_1 == 0 && countBetReal_2 == 0) {
+            xoso66_onOff.setText("Done");
+            scheduler.shutdown();
+            flagXoso66 = false;
+            flagBet_1 = true;
+            flagBet_2 = true;
+        } else if (tongLai >= (tongReal * 2) && countBetReal_1 == 0 && countBetReal_2 > 0) {
+            flagBet_1 = true;
+        } else if (tongLai >= (tongReal * 2) && countBetReal_1 > 0 && countBetReal_2 == 0) {
+            flagBet_2 = true;
+        } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
             xoso66_onOff.setText("Done");
             scheduler.shutdown();
             flagXoso66 = false;

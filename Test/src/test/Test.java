@@ -23,7 +23,7 @@ public class Test {
     private int tongThang = 0;
     private int tongLai = 0;
     private int countStop = 0;
-    private int countData = 1920;
+    private int countData = 2880;
     private String xoso66_1_cau3 = "-";
     private String xoso66_1_cau4 = "-";
     private String xoso66_1_cau5 = "-";
@@ -70,26 +70,6 @@ public class Test {
     };
 
     private void reset() {
-        arrCau_1 = new String[]{
-            "TTTNT",
-            "NNNTT",
-            "NNNTN",
-            "TNNNT",
-            "TTTNN",
-            "TNTTT",
-            "NTTTN",
-            "NTNNN"
-        };
-        arrCau_2 = new String[]{
-            "TTTNT",
-            "NNNTT",
-            "NNNTN",
-            "TNNNT",
-            "TTTNN",
-            "TNTTT",
-            "NTTTN",
-            "NTNNN"
-        };
         countStop = 0;
         tongLai = 0;
         xoso66_1_cau3 = "-";
@@ -149,6 +129,7 @@ public class Test {
     public Test() {
         NumberFormat numb = NumberFormat.getCurrencyInstance(new Locale("Vi", "VN"));
         Random rd = new Random();
+
         for (int e = 0; e < 12; e++) {
             for (int i = 0; i < 30; i++) {
                 reset();
@@ -168,9 +149,6 @@ public class Test {
                     } else {
                         kqTX = "T";
                     }
-                    if (xs1 == xs2 && xs2 == xs3) {
-                        kqTX = "B";
-                    }
                     taiXiu(kqTX);
 
                     String kqCL;
@@ -178,9 +156,6 @@ public class Test {
                         kqCL = "C";
                     } else {
                         kqCL = "L";
-                    }
-                    if (xs1 == xs2 && xs2 == xs3) {
-                        kqCL = "B";
                     }
                     chanLe(kqCL);
 
@@ -405,11 +380,13 @@ public class Test {
             tongReal += money;
         }
 
-        if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
+        if (tongLai >= (tongReal * 2) && countBetReal_1 == 0 && countBetReal_2 == 0) {
+            flagBet_1 = true;
+        } else if (tongLai >= (tongReal * 2) && countBetReal_1 == 0 && countBetReal_2 > 0) {
+            flagBet_1 = true;
+        } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
             flagBet_1 = true;
         } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 > 0) {
-            flagBet_1 = true;
-        } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 > 0 && countBetReal_2 == 0) {
             flagBet_1 = true;
         } else if (countStop >= (countData - 120) && countBetReal_1 == 0) {
             flagBet_1 = true;
@@ -424,7 +401,11 @@ public class Test {
             tongReal += money;
         }
 
-        if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
+        if (tongLai >= (tongReal * 2) && countBetReal_1 == 0 && countBetReal_2 == 0) {
+            flagBet_2 = true;
+        } else if (tongLai >= (tongReal * 2) && countBetReal_1 > 0 && countBetReal_2 == 0) {
+            flagBet_2 = true;
+        } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 == 0 && countBetReal_2 == 0) {
             flagBet_2 = true;
         } else if (tongLai <= (tongReal * -1.6) && countBetReal_1 > 0 && countBetReal_2 == 0) {
             flagBet_2 = true;
